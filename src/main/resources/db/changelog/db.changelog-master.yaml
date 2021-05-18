@@ -4,7 +4,7 @@ databaseChangeLog:
       author: tej
       changes:
         - createTable:
-            tableName: record
+            tableName: employees
             columns:
               - column:
                   name: id
