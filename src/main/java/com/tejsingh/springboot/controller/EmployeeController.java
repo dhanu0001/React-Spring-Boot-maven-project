@@ -20,7 +20,8 @@ import com.tejsingh.springboot.exception.ResourceNotFoundException;
 import com.tejsingh.springboot.model.Employee;
 import com.tejsingh.springboot.repository.EmployeeRepository;
 
-@CrossOrigin(origins = "http://127.0.0.1:3000")
+@CrossOrigin(origins = "https://tej-employee.netlify.app")
+// @CrossOrigin(origins = "http://127.0.0.1:3000")
 @RestController
 @RequestMapping("/api/v1/")
 public class EmployeeController {
