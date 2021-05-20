@@ -8,7 +8,7 @@ import FormControlLabel from "@material-ui/core/FormControlLabel";
 import Switch from "@material-ui/core/Switch";
 
 import { withTheme } from "./theme";
-
+import NavBar from "./modules/NavBar";
 const useStyles = makeStyles((theme) => ({
   root: {
     width: "100%",
@@ -19,18 +19,17 @@ const useStyles = makeStyles((theme) => ({
     position: "absolute",
     overflow: "auto",
     backgroundColor: theme.palette.background.paper, // Makes it the same color as the paper color
-    // backgroundImage: `url(${"https://www.transparenttextures.com/patterns/cubes.png"})`,
   },
 }));
 
 function App(props) {
   const classes = useStyles();
-  const theme = useTheme();
   const { darkMode, setDarkMode } = props;
 
   return (
     <Grid className={classes.root} container direction="column">
       <Grid item container justify="flex-end">
+        <NavBar />
         <FormControlLabel
           control={
             <Switch
