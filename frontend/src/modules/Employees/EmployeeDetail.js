@@ -115,7 +115,7 @@ const EmployeeDetail = () => {
                   component={TextField}
                   name="emailId"
                   type="text"
-                  label=" emailId"
+                  label=" Email Id"
                   variant="outlined"
                 />
               </Grid>
