@@ -23,7 +23,7 @@ import com.tejsingh.springboot.repository.EmployeeRepository;
 @CrossOrigin(origins = "https://tej-employee.netlify.app")
 // @CrossOrigin(origins = "http://127.0.0.1:3000")
 @RestController
-@RequestMapping("/api/v1/")
+@RequestMapping("/api/")
 public class EmployeeController {
 
 	@Autowired
