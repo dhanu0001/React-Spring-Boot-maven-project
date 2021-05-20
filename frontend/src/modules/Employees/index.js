@@ -19,7 +19,6 @@ const Employees = () => {
         <Grid item>
           <EmployeesList />
         </Grid>
-        ) : ( "" )
       </Grid>
     </Box>
   );

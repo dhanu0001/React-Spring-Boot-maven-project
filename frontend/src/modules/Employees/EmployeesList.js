@@ -11,20 +11,14 @@ import Paper from "@material-ui/core/Paper";
 import DeleteIcon from "@material-ui/icons/Delete";
 import CreateIcon from "@material-ui/icons/Create";
 import { useDispatch, useSelector } from "react-redux";
-import {  selectEmployees, setDrawer } from "./employeesSlice";
-import {
-  deleteEmployee,
-  getEmployee,
-  getEmployees,
-} from "./actions";
+import { selectEmployees, setDrawer } from "./employeesSlice";
+import { deleteEmployee, getEmployee, getEmployees } from "./actions";
 
 const useStyles = makeStyles({
   table: {
-    overflow:"hidden"
+    overflow: "hidden",
   },
 });
-
-
 
 export default function EmployeesList() {
   const classes = useStyles();
@@ -35,7 +29,7 @@ export default function EmployeesList() {
     dispatch(getEmployees());
   }, []);
   return (
-    <TableContainer component={Paper} style={{width:"99vw"}}>
+    <TableContainer component={Paper} style={{ width: "99vw" }}>
       <Table className={classes.table} aria-label="simple table">
         <TableHead>
           <TableRow>
@@ -46,7 +40,10 @@ export default function EmployeesList() {
           </TableRow>
         </TableHead>
         <TableBody>
-          {employees.map((row) => (
+          {((Array.isArray(employees) && employees.length > 0) === true
+            ? employees
+            : []
+          ).map((row) => (
             <TableRow key={row.firstName}>
               <TableCell component="th" scope="row">
                 {row.firstName}
@@ -54,7 +51,12 @@ export default function EmployeesList() {
               <TableCell align="right">{row.lastName}</TableCell>
               <TableCell align="right">{row.emailId}</TableCell>
               <TableCell align="right">
-                <Button onClick={() => { dispatch(getEmployee(row.id));dispatch(setDrawer(true))}}>
+                <Button
+                  onClick={() => {
+                    dispatch(getEmployee(row.id));
+                    dispatch(setDrawer(true));
+                  }}
+                >
                   <CreateIcon />
                 </Button>
                 <Button onClick={() => dispatch(deleteEmployee(row.id))}>
