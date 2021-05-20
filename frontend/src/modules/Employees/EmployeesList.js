@@ -7,6 +7,7 @@ import TableCell from "@material-ui/core/TableCell";
 import TableContainer from "@material-ui/core/TableContainer";
 import TableHead from "@material-ui/core/TableHead";
 import TableRow from "@material-ui/core/TableRow";
+import CircularProgress from "@material-ui/core/CircularProgress";
 import Paper from "@material-ui/core/Paper";
 import DeleteIcon from "@material-ui/icons/Delete";
 import CreateIcon from "@material-ui/icons/Create";
@@ -28,7 +29,11 @@ export default function EmployeesList() {
   useEffect(() => {
     dispatch(getEmployees());
   }, []);
-  return (
+  return !(Array.isArray(employees) && employees.length > 0) === true ? (
+    <div style={{ textAlign: "center" }}>
+      <CircularProgress />
+    </div>
+  ) : (
     <TableContainer component={Paper} style={{ width: "99vw" }}>
       <Table className={classes.table} aria-label="simple table">
         <TableHead>
