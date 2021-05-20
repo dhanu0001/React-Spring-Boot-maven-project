@@ -147,7 +147,7 @@ export function* deleteEmployeeSaga(params) {
     yield put(getEmployeesAction());
     yield put(
       enqueueSnackbar({
-        message: result?.data?.message,
+        message: "Employee deleted successfully!",
         options: {
           key: uuid(),
           variant: "success",
