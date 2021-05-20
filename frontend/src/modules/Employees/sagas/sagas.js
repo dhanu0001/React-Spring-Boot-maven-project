@@ -9,6 +9,7 @@ import {
   setEmployeesLoading,
   setEmployee,
   setEmployeeLoading,
+  setDrawer,
 } from "../employeesSlice";
 import {
   getEmployees,
@@ -86,6 +87,7 @@ export function* postEmployeeSaga(params) {
         },
       })
     );
+    yield put(setDrawer(false))
   } catch (e) {
     console.error(e);
     yield put(
@@ -122,6 +124,7 @@ export function* putEmployeeSaga(params) {
         },
       })
     );
+    yield put(setDrawer(false))
   } catch (e) {
     console.error(e);
     yield put(
@@ -143,7 +146,7 @@ export function* putEmployeeSaga(params) {
 export function* deleteEmployeeSaga(params) {
   try {
     const { data: id } = params;
-    const result = yield call(deleteEmployee, id);
+    yield call(deleteEmployee, id);
     yield put(getEmployeesAction());
     yield put(
       enqueueSnackbar({
