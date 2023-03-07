@@ -1,0 +1,65 @@
+name: SonarCloud analysis 
+on:
+  push:
+    branches:
+      - main 
+  pull_request:
+     branches:
+       - main
+     types: [opened, synchronize, reopened] 
+jobs:
+  sonarcloud: 
+    name: SonarCloud
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+        with:
+           fetch-depth: 0  # Shallow clones should be disabled for a better relevancy of analysis
+
+      - name: Build with maven
+        run: mvn clean package
+          
+      - name: Test with maven
+        run: mvn test
+        
+      - name: Analyze with Sonarcloud with quality gate condition as code-coverage above 80%
+        run: mvn -B verify sonar:sonar -Dsonar.projectKey=$SONAR_PROJECTKEY -Dsonar.organization=$SONAR_ORGANIZATION -Dsonar.host.url=https://sonarcloud.io -Dsonar.login=$SONAR_TOKEN -Dsonar.qualitygate.wait=true
+#         with:
+#           projectBaseDir: /home/runner/work/springboot-java-project/springboot-java-project/target/site/jacoco/jacoco.csv
+#           sonarCloudScan: true
+        env:
+          GITHUB_TOKEN: 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  # Needed to get PR information, if any
+          SONAR_PROJECTKEY: dhanu0001_springboot-java-maven-project
+          SONAR_ORGANIZATION: saks-code-repo
+          SONAR_TOKEN: 7ee42a88ae8539b3bf2c4534809d6cb522655bef 
+          
+#       - name: Analyze with Sonarcloud without condition
+#         run: mvn -B verify sonar:sonar -Dsonar.projectKey=$SONAR_PROJECTKEY -Dsonar.organization=$SONAR_ORGANIZATION -Dsonar.host.url=https://sonarcloud.io -Dsonar.login=$SONAR_TOKEN -Dsonar.qualitygate.wait=false
+          
+#       - name: Build and analyze
+#         env:
+#           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}  # Needed to get PR information, if any
+#           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
+#           SONAR_HOST_URL: ${{ secrets.SONAR_HOST_URL }}
+#         run: mvn -B verify org.sonarsource.scanner.maven:sonar-maven-plugin:sonar
+          
+      # Check the Quality Gate status.
+#       - name: SonarQube Quality Gate check
+#         id: sonarqube-quality-gate-check
+#         uses: sonarsource/sonarqube-quality-gate-action@master
+#         with:
+#            scanMetadataReportFile: target/sonar/report-task.txt
+#            wait-for-quality-gate: 'true'
+#            quality-gate-wait-timeout: 2m
+#         Force to fail step after specific time.
+#         timeout-minutes: 5
+#         env:
+#           GITHUB_TOKEN: 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  # Needed to get PR information, if any
+#           SONAR_PROJECTKEY: saks-code-repo
+#           SONAR_ORGANIZATION: dhanu0001
+#           SONAR_TOKEN: 97e22ce748b6b6855d1f1fcd0e3ca2323abd0219
+        
+        
+  
+        
